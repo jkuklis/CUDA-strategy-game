@@ -63,9 +63,6 @@ void __global__ possible_moves(my_rep_class *my_rep, int player, int *n_moves, i
   int stride = blockDim.x * gridDim.x;
   int side = my_rep->side;
 
-  int nn_moves = 0;
-  int4 new_moves[4 * 100];
-
   for (int i = index; i < my_rep->size - 1; i += stride) {
 
     int x = i % side;
@@ -75,20 +72,20 @@ void __global__ possible_moves(my_rep_class *my_rep, int player, int *n_moves, i
 
     if (my_rep->A[pos] == player + 1) {
       if (my_rep->A[i - side - 1] == 1) {
-        new_moves[nn_moves] = {x, y, x-1, y-1};
-        nn_moves++;
+        int j = atomicAdd(n_moves, 1);
+        moves[j] = {x, y, x-1, y-1};
       }
       if (my_rep->A[i - side + 1] == 1) {
-        new_moves[nn_moves] = {x, y, x+1, y-1};
-        nn_moves++;
+        int j = atomicAdd(n_moves, 1);
+        moves[j] = {x, y, x+1, y-1};
       }
       if (my_rep->A[i + side - 1] == 1) {
-        new_moves[nn_moves] = {x, y, x-1, y+1};
-        nn_moves++;
+        int j = atomicAdd(n_moves, 1);
+        moves[j] = {x, y, x-1, y+1};
       }
       if (my_rep->A[i + side + 1] == 1) {
-        new_moves[nn_moves] = {x, y, x+1, y-1};
-        nn_moves++;
+        int j = atomicAdd(n_moves, 1);
+        moves[j] = {x, y, x+1, y-1};
       }
     }
   }

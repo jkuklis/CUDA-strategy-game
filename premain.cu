@@ -25,6 +25,17 @@ int main() {
       possible_moves_threads>>>(my_rep, 2, n_moves, moves);
     update<<<update_blocks, update_threads>>>(my_rep,
       selected_move(n_moves, moves));
+
+      my_rep_class rep2;
+      cudaMemcpy(&rep2, &rep, sizeof(my_rep_class), cudaMemcpyDeviceToHost);
+
+      std::cout << "\n";
+      for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+          std::cout << rep2.A[i * 10 + j] << " ";
+        }
+        std::cout << "\n";
+      }
   }
 
   cudaFree(n_moves);
