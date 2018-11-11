@@ -1,7 +1,8 @@
 #include <iostream>
 
 int *initial_state() {
-  int size = 2048 * 2048;
+  int side = 8;
+  int size = side * side;
   // int *A = new int [size * sizeof *A];
   // int *A = (int *)malloc(sizeof *A * size);
   int *A;
@@ -26,5 +27,5 @@ int *initial_state() {
 }
 
 int4 selected_move(int *number_of_moves, int4 *moves) {
-  return moves[0];
+  return {1,2,3,4};
 }
