@@ -29,7 +29,9 @@ int *initial_state() {
 }
 
 int4 selected_move(int *number_of_moves, int4 *moves) {
-  if (*numer_of_moves > 0) {
+  int nm;
+  cudaMemcpy(&nm, number_of_moves, sizeof(int), cudaMemcpyDeviceToHost);
+  if (nm > 0) {
     return moves[0];
   } else {
     return {0,1,1,0};

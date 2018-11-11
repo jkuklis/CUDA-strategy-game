@@ -19,6 +19,7 @@ int main() {
       possible_moves_threads>>>(my_rep, 1, n_moves, moves);
     update<<<update_blocks, update_threads>>>(my_rep,
       selected_move(n_moves, moves));
+
     cudaMemset(n_moves, 0, sizeof(int));
     possible_moves<<<possible_moves_blocks,
       possible_moves_threads>>>(my_rep, 2, n_moves, moves);
