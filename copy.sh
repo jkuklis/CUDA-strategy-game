@@ -1,0 +1,1 @@
+scp -r . stud:~/nvidia
