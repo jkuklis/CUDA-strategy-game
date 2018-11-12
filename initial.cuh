@@ -5,7 +5,7 @@ std::random_device rd;     // only used once to initialise (seed) engine
 std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
 
 int *initial_state() {
-  int side = 548;
+  int side = 48;
   int size = side * side;
   // int *A = new int [size * sizeof *A];
   // int *A = (int *)malloc(sizeof *A * size);
@@ -23,28 +23,26 @@ int *initial_state() {
   // for (int i = 1; i < size; i += 2) {
   //   cudaMemcpy(&A[i], &zero, sizeof(int), cudaMemcpyHostToDevice);
   // }
-  // for (int i = 1; i < blackCount * 8; i += 2) {
-  //   cudaMemcpy(&A[i], &one, sizeof(int), cudaMemcpyHostToDevice);
-  // }
-  // for (int i = 2048; i < 2048 + blackCount * 3; i += 2) {
-  //   cudaMemcpy(&A[i], &two, sizeof(int), cudaMemcpyHostToDevice);
-  // }
-
-  // cudaMemcpy(&A[side], &one, sizeof(int), cudaMemcpyHostToDevice);
+  for (int i = 1; i < blackCount * 4; i += 2) {
+    cudaMemcpy(&A[i], &one, sizeof(int), cudaMemcpyHostToDevice);
+  }
+  for (int i = side; i < side + blackCount * 2; i += 2) {
+    cudaMemcpy(&A[i], &two, sizeof(int), cudaMemcpyHostToDevice);
+  }
 
   return A;
 }
 
 int4 selected_move(int *number_of_moves, int4 *moves) {
-  // int nm;
-  // cudaMemcpy(&nm, number_of_moves, sizeof(int), cudaMemcpyDeviceToHost);
-  // if (nm > 0) {
-  //   int4 a;
-  //   std::uniform_int_distribution<int> uni(0,nm - 1); // guaranteed unbiased
-  //
-  //   cudaMemcpy(&a, &moves[uni(rng)], sizeof(int4), cudaMemcpyDeviceToHost);
-  //   return a;
-  // } else {
+  int nm;
+  cudaMemcpy(&nm, number_of_moves, sizeof(int), cudaMemcpyDeviceToHost);
+  if (nm > 0) {
+    int4 a;
+    std::uniform_int_distribution<int> uni(0,nm - 1); // guaranteed unbiased
+
+    cudaMemcpy(&a, &moves[uni(rng)], sizeof(int4), cudaMemcpyDeviceToHost);
+    return a;
+  } else {
     return {0,1,1,0};
-  // }
+  }
 }
