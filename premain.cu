@@ -17,23 +17,23 @@ int main() {
   my_representation<<<my_representation_blocks,
     my_representation_threads>>>(A, my_rep);
 
-  int side = 2 + 48;
-
-  std::cout << "\n";
-  for (int i = 0; i < side; i++) {
-    for (int j = 0; j < side; j++) {
-      int a;
-      cudaMemcpy(&a, &(my_rep->A[i * side + j]), sizeof(int), cudaMemcpyDeviceToHost);
-      if (a != 1) {
-        std::cout << a << " ";
-      } else {
-        std::cout << "  ";
-      }
-    }
-    std::cout << "\n";
-  }
-
-  std::cout << "\n";
+  // int side = 2 + 48;
+  //
+  // std::cout << "\n";
+  // for (int i = 0; i < side; i++) {
+  //   for (int j = 0; j < side; j++) {
+  //     int a;
+  //     cudaMemcpy(&a, &(my_rep->board_rep[i * side + j]), sizeof(int), cudaMemcpyDeviceToHost);
+  //     if (a != 0) {
+  //       std::cout << a << " ";
+  //     } else {
+  //       std::cout << "  ";
+  //     }
+  //   }
+  //   std::cout << "\n";
+  // }
+  //
+  // std::cout << "\n";
 
   int turns = 100;
 
@@ -95,20 +95,20 @@ int main() {
     //   std::cout << "\n";
     // }
   }
-  
-  std::cout << "\n";
-  for (int i = 0; i < side; i++) {
-    for (int j = 0; j < side; j++) {
-      int a;
-      cudaMemcpy(&a, &(my_rep->A[i * side + j]), sizeof(int), cudaMemcpyDeviceToHost);
-      if (a != 1) {
-        std::cout << a << " ";
-      } else {
-        std::cout << "  ";
-      }
-    }
-    std::cout << "\n";
-  }
+  //
+  // std::cout << "\n";
+  // for (int i = 0; i < side; i++) {
+  //   for (int j = 0; j < side; j++) {
+  //     int a;
+  //     cudaMemcpy(&a, &(my_rep->board_rep[i * side + j]), sizeof(int), cudaMemcpyDeviceToHost);
+  //     if (a != 0) {
+  //       std::cout << a << " ";
+  //     } else {
+  //       std::cout << "  ";
+  //     }
+  //   }
+  //   std::cout << "\n";
+  // }
 
   cudaFree(n_moves);
   cudaFree(moves);

@@ -5,7 +5,7 @@ std::random_device rd;     // only used once to initialise (seed) engine
 std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
 
 int *initial_state() {
-  int side = 48;
+  int side = 2048;
   int size = side * side;
   // int *A = new int [size * sizeof *A];
   // int *A = (int *)malloc(sizeof *A * size);
